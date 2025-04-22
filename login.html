@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212; /* مشکی عمیق */
+            color: #e0e0e0; /* متن خاکستری روشن */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .auth-box {
+            background-color: #1e1e1e; /* مشکی مات */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .auth-box h2 {
+            color: #ff5722; /* نارنجی مایل به قرمز */
+            margin-bottom: 20px;
+        }
+        .auth-box .form-control {
+            background-color: #121212; /* مشکی عمیق */
+            border: 1px solid #393e46; /* خاکستری تیره */
+            color: #e0e0e0; /* متن خاکستری روشن */
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .auth-box .form-control:focus {
+            border-color: #ff5722; /* نارنجی مایل به قرمز */
+            box-shadow: 0 0 5px rgba(255, 87, 34, 0.5); /* هایلایت نارنجی */
+        }
+        .auth-box .btn-primary {
+            background-color: #ff5722; /* نارنجی مایل به قرمز */
+            border-color: #ff5722;
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        .auth-box .btn-primary:hover {
+            background-color: #e64a19; /* نارنجی تیره‌تر */
+            border-color: #e64a19;
+        }
+        .auth-box .switch-link {
+            color: #ff5722; /* نارنجی مایل به قرمز */
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        .auth-box .switch-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid auth-container">
+        <!-- Login Form -->
+        <div id="loginBox" class="auth-box">
+            <h2>Login</h2>
+            <form action="login_check.php" method="POST">
+                <input type="text" class="form-control" name="username" placeholder="Username or Email" required>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <a href="#" class="switch-link" onclick="switchToRegister()">Don't have an account? Register here</a>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerBox" class="auth-box" style="display: none;">
+            <h2>Register</h2>
+            <form action="login_check.php" method="POST">
+                <input type="text" class="form-control" name="fullname" placeholder="Full Name" required>
+                <input type="email" class="form-control" name="email" placeholder="Email" required>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <a href="#" class="switch-link" onclick="switchToLogin()">Already have an account? Login here</a>
+        </div>
+    </div>
+
+    <script>
+        function switchToRegister() {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('registerBox').style.display = 'block';
+        }
+
+        function switchToLogin() {
+            document.getElementById('registerBox').style.display = 'none';
+            document.getElementById('loginBox').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
