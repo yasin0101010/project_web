@@ -10,11 +10,10 @@
 
         $query = "SELECT * FROM `user` WHERE `email` = '$username' AND `password` = '$password'";
         $result = mysqli_query($connect_db, $query);
-
-        if ($result) {
+        $row = mysqli_fetch_array($result);
+        if ($row) {
             $_SESSION['login_check'] = true;
-            $user_data = mysqli_fetch_assoc($result);
-            if ($user_data['admin'] == 1) {
+            if ($row['admin'] == 1) {
                 $_SESSION['admin'] = true; // کاربر مدیر است
             }
             echo "Login successful!";
@@ -28,6 +27,14 @@
             <?php
         } else {
             echo "Invalid username or password!";
+            ?>
+            <script>
+    
+                setTimeout(function(){
+                        location.replace("login.html");
+                    }, 2000); 
+            </script>
+            <?php
         }
     } elseif (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
         $fullname = $_POST['fullname'];
