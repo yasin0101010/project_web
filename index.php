@@ -454,7 +454,7 @@ $row = mysqli_fetch_array($show);
                 labels: ['Python', 'HTML/CSS', 'C#'],
                 datasets: [{
                     data: [79.49, 15.50, 5.01],
-                    backgroundColor: ['#ff5722', '#393e46', '#e0e0e0'], /* رنگ‌های دارک */
+                    backgroundColor: ['#ff5722', '#393e46', '#e0e0e0'], 
                     borderColor: '#121212',
                     borderWidth: 2
                 }]
@@ -465,7 +465,7 @@ $row = mysqli_fetch_array($show);
                     legend: {
                         position: 'bottom',
                         labels: {
-                            color: '#e0e0e0' /* متن خاکستری روشن */
+                            color: '#e0e0e0' 
                         }
                     }
                 }
