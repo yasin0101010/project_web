@@ -13,8 +13,8 @@
         $row = mysqli_fetch_array($result);
         if ($row) {
             $_SESSION['login_check'] = true;
-            if ($row['admin'] == 1) {
-                $_SESSION['admin'] = true; // کاربر مدیر است
+            if ($row['admin'] == true) {
+                $_SESSION['admin'] = true; 
             }
             echo "Login successful!";
             ?>

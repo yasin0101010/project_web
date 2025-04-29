@@ -338,7 +338,7 @@ $row = mysqli_fetch_array($show);
                 <a href="admin.php" class="nav-link"> 
                     admin
                 </a>
-            <?php
+                <?php
             }
             ?>
             </li>
