@@ -1,3 +1,86 @@
+<?php
+session_start();
+
+$connect_db = mysqli_connect("localhost", "root", "", "new_web");
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $query = "SELECT * FROM `user` WHERE `email` = '$username' AND `password` = '$password'";
+    $result = mysqli_query($connect_db, $query);
+    $row = mysqli_fetch_array($result);
+    if ($row) {
+        $_SESSION['login_check'] = true;
+        if ($row['admin'] == true) {
+            $_SESSION['admin'] = true;
+        }
+        ?>
+        <div id="alertBox" class="alert success">Login successful!</div>
+        <script>
+            document.getElementById('alertBox').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('alertBox').style.display = 'none';
+                location.replace("index.php");
+            }, 2000);
+        </script>
+        <?php
+    } else {
+        ?>
+        <div id="alertBox" class="alert error">Invalid username or password!</div>
+        <script>
+            document.getElementById('alertBox').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('alertBox').style.display = 'none';
+                location.replace("login.php");
+            }, 2000);
+        </script>
+        <?php
+    }
+} elseif (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    if ($password !== $confirm_password) {
+        ?>
+        <div id="alertBox" class="alert error">Passwords do not match!</div>
+        <script>
+            document.getElementById('alertBox').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('alertBox').style.display = 'none';
+            }, 2000);
+        </script>
+        <?php
+    } else {
+        $insert_query = "INSERT INTO `user` (`fullname`, `email`, `password`) VALUES ('$fullname', '$email', '$password')";
+        if (mysqli_query($connect_db, $insert_query)) {
+            ?>
+            <div id="alertBox" class="alert success">Registration successful!</div>
+            <script>
+                document.getElementById('alertBox').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('alertBox').style.display = 'none';
+                    location.replace("index.php");
+                }, 2000);
+            </script>
+            <?php
+        } else {
+            ?>
+            <div id="alertBox" class="alert error">Error: <?php echo mysqli_error($connect_db); ?></div>
+            <script>
+                document.getElementById('alertBox').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('alertBox').style.display = 'none';
+                }, 2000);
+            </script>
+            <?php
+        }
+    }
+}
+mysqli_close($connect_db);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +89,31 @@
     <title>Login & Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e1e1e; /* مشکی مات */
+            color: #e0e0e0; /* متن خاکستری روشن */
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-size: 0.9rem;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .alert.success {
+            border-left: 4px solid rgb(60, 255, 34);
+        }
+        .alert.error {
+            border-left: 4px solid #d32f2f; 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; top: 0; }
+            to { opacity: 1; top: 20px; }
+        }
         body {
             background-color: #121212; /* مشکی عمیق */
             color: #e0e0e0; /* متن خاکستری روشن */
@@ -69,7 +177,7 @@
         <!-- Login Form -->
         <div id="loginBox" class="auth-box">
             <h2>Login</h2>
-            <form action="login_check.php" method="POST">
+            <form action="login.php" method="POST">
                 <input type="text" class="form-control" name="username" placeholder="Username or Email" required>
                 <input type="password" class="form-control" name="password" placeholder="Password" required>
                 <button type="submit" class="btn btn-primary">Login</button>
@@ -80,7 +188,7 @@
         <!-- Register Form -->
         <div id="registerBox" class="auth-box" style="display: none;">
             <h2>Register</h2>
-            <form action="login_check.php" method="POST">
+            <form action="login.php" method="POST">
                 <input type="text" class="form-control" name="fullname" placeholder="Full Name" required>
                 <input type="email" class="form-control" name="email" placeholder="Email" required>
                 <input type="password" class="form-control" name="password" placeholder="Password" required>

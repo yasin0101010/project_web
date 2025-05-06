@@ -293,7 +293,7 @@ $row = mysqli_fetch_array($show);
                 <?php
                 }
                 else{?>
-                    <a href="login.html">Login/Register</a>
+                    <a href="login.php">Login/Register</a>
                 <?php
                 }
                 ?>

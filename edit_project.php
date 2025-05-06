@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image URL:</label>
-                <input type="file" class="form-control" id="image" name="image" value="<?php echo $project['picture'] ?>" required>
+                <input type="file" class="form-control" id="image" name="image" value="<?php echo $project['picture'] ?>">
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
